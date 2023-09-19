@@ -3,27 +3,31 @@
 #include <malloc.h>
 #define SIZE 100
 
+// 구조체 선언
 typedef struct treeNode
 {
 	double data;
 	struct treeNode* left, * right;
 } TreeNode;
 
-
+// 스택 선언
 int top = -1;
 TreeNode* stack[SIZE];
 
+// is_empty 선언
 int is_empty()
 {
 	if (top == -1) return 1;
 	else return 0;
 }
 
+// push 선언
 void push(TreeNode* p)
 {
 	if (top < SIZE - 1) stack[++top] = p;
 }
 
+// pop선언
 TreeNode* pop()
 {
 	TreeNode* p = NULL;
@@ -31,7 +35,7 @@ TreeNode* pop()
 	return p;
 }
 
-
+// 중위순회를 이용한 노드의 수 세기
 int inorder_iter(TreeNode* root)
 {
 	int cnt = 0;
@@ -52,6 +56,7 @@ int inorder_iter(TreeNode* root)
 	return cnt;
 }
 
+// 연산자 tree 선언
 TreeNode n1 = { 2, NULL, NULL };
 TreeNode n2 = { 3, NULL, NULL };
 TreeNode n3 = { 4, NULL, NULL };
@@ -67,6 +72,7 @@ TreeNode op4 = { '+', &op3,&op1 };
 TreeNode op5 = { '-', &op4,&op2 };
 TreeNode root = { '+', &op5,&n7 };
 
+// 나누기가 있으므로 double형을 이용해 후위순회를 이용한 계산
 double evaluate(TreeNode* root)
 {
 	double result = 0;
@@ -88,10 +94,11 @@ double evaluate(TreeNode* root)
 	}
 }
 
+// main함수
 int main(void)
 {
-	printf("������ ���� %.2f�Դϴ�.\n", evaluate(&root));
+	printf("수식의 값은 %.2f입니다.\n", evaluate(&root));
 	int count = inorder_iter(&root);
-	printf("\n�� ����� ���� %d�� �Դϴ�.\n", count);
+	printf("\n총 노드의 수는 %d개 입니다.\n", count);
 	return 0;
 }
